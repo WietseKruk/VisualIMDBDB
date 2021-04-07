@@ -3,15 +3,38 @@
 }
 
 .button{
-    -fx-font: bold italic 20px "Arial";
-    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
-    -fx-margin: 40;
+    -fx-background-color:
+    linear-gradient(#3b99b6, #3a7ca5),
+    radial-gradient(center 50% -40%, radius 200%, #3b99b6 45%, #3a7ca5 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #1b1f46;
+    -fx-font-family: "Verdana", sans-serif;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color:
+    linear-gradient(#2f87a1, #2e6d94),
+    radial-gradient(center 50% -40%, radius 200%, #2f87a1 45%, #2e6d94 50%);
+    -fx-background-radius: 6, 5;
+    -fx-scale-y: 1.1;
+    -fx-cursor: hand;
 }
 
 .text{
-    -fx-font-size: 20;
+    -fx-font-size: 13;
+    -fx-text-alignment: center;
 }
 
 .Hbox{
     -fx-background: black;
+}
+
+.grid {
+    -fx-font-family: "Verdana", sans-serif;
+    -fx-font-size: 18;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
 }

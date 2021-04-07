@@ -1,0 +1,14 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Program Files (x86)\\MySQL\\Connector J 8.0\\mysql-connector-java-8.0.23.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx.base.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx.controls.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx.fxml.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx.graphics.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx.media.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx.swing.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx.web.jar",
+        "e:\\Docs\\School\\P3\\javafx-sdk-11.0.2\\lib\\javafx-swt.jar"
+    ]
+}
