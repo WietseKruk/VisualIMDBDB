@@ -40,6 +40,7 @@ public class App extends Application{
 
     // private ArrayList<String> imageURLList = new ArrayList<String>();
     private ArrayList<ImageView> imageList = new ArrayList<ImageView>();
+    private ArrayList<ImageView> imageBlank = new ArrayList<ImageView>();
     private ArrayList<String> descriptions = new ArrayList<String>();
     private ArrayList<Button> buttonList = new ArrayList<Button>();
 
@@ -50,8 +51,8 @@ public class App extends Application{
     private String[] btn2Images = new String[]{
         "images/mf1.jpg",
         "images/mf2.jpg",
-        "images/frog.jpg",
         "images/frog.jpg"
+        //"images/frog.jpg"
     };
 
     private String[] btn3Images = new String[]{
@@ -92,6 +93,10 @@ public class App extends Application{
     private String[] btn10Images = new String[]{
         "images/GoVnoEZ.jpg",
         "images/frog1.jpg"
+    };
+
+    private String[] blankImage = new String[]{
+        "images/blankimg.png"
     };
 
     private String[] vragen = new String[]{
@@ -173,11 +178,10 @@ public class App extends Application{
         grid.setLayoutX(370);
         grid.setLayoutY(20);
 
-
         border.setStyle("-fx-border-width: 3; -fx-border-color: #454e9e; -fx-background: darkblue;");
 
         for (int i = 0; i < buttonList.size(); i++) {
-
+           
             buttonList.get(i).setOnAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event){
@@ -187,7 +191,8 @@ public class App extends Application{
 
                     //Testen voor leeg db
                     ArrayList<String> testList = new ArrayList();
-
+                    imageBlank.clear();
+                    imageBlank = ctrl.displayImages(blankImage);
                     switch(b.getText()){
                         case "Hoeveel acteurs zijn er met de naam Wouter?": imageList = ctrl.displayImages(btn1Images);
                             query = "SELECT COUNT(DISTINCT actorname) AS count FROM tempactors WHERE actorname LIKE '%, Wouter';";
@@ -226,8 +231,6 @@ public class App extends Application{
                         break;
                     }
                     
-                    root.getChildren().remove(box);
-                    box.getChildren().clear();
                     root.getChildren().remove(grid);
                     grid.getChildren().clear();
 
@@ -242,12 +245,11 @@ public class App extends Application{
 
                     int col = 0;
                     int row = 0;
-                    if(descriptions.size() == imageList.size() && descriptions.size() > 0){
+
+                    if(descriptions.size() > 0){
                         for (int j = 0; j < descriptions.size(); j++) {
                             System.out.println("entering image+desc loop");
-                            box.getChildren().add(imageList.get(j));
                             Text text = new Text(100, 250, descriptions.get(j));
-                            box.getChildren().add(text);
 
                             if(j%2 == 0){
                                 col = 0;
@@ -255,7 +257,10 @@ public class App extends Application{
                             }else{
                                 col = 1;
                             }
-                            grid.add(imageList.get(j), col, row);
+                            if(imageList.size() > j)
+                                grid.add(imageList.get(j), col, row);
+                            else
+                                grid.add(imageBlank.get(0), col, row);
                             grid.add(text, col, row+1);
                         }
                     }
