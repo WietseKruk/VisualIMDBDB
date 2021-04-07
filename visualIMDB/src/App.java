@@ -63,7 +63,7 @@ public class App extends Application{
     };
 
     private String[] btn4Images = new String[]{
-        "images/maxresdefault.jpg"
+        "images/newyork.jpg"
     };
 
     private String[] btn5Images = new String[]{
@@ -71,12 +71,11 @@ public class App extends Application{
     };
 
     private String[] btn6Images = new String[]{
-        "images/p7mi3mo31x2z.jpg"
+        "images/Tom_Byron.jpg"
     };
 
     private String[] btn7Images = new String[]{
-        "images/GoVnoEZ.jpg",
-        "images/frog1.jpg"
+        "images/nina_hartley.jpg"
     };
 
     private String[] btn8Images = new String[]{
@@ -93,12 +92,13 @@ public class App extends Application{
     };
 
     private String[] btn9Images = new String[]{
-        "images/dumbanddumber.jpg"
+        "images/bobby.jpg",
+        "images/frog.jpg",
+        "images/frog1.jpg"
     };
 
     private String[] btn10Images = new String[]{
-        "images/GoVnoEZ.jpg",
-        "images/frog1.jpg"
+        "images/jinglebells.jpg"
     };
 
     private String[] vragen = new String[]{
@@ -214,7 +214,7 @@ public class App extends Application{
                         case "Welke acteur heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn6Images);
                             query = "SELECT actorName, COUNT(actorName) as NUMFILMS FROM tempactors WHERE serieormovie = 'movie' GROUP BY actorName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
-                        case "Welke actrice heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn6Images);
+                        case "Welke actrice heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn7Images);
                             query = "SELECT actressName, COUNT(actressName) as NUMFILMS FROM tempactresses WHERE serieormovie = 'movie' GROUP BY actressName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
                         case "Welke acteurs hebben de rol van James Bond gespeeld?": imageList = ctrl.displayImages(btn8Images);
