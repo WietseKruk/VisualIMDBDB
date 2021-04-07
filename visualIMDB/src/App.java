@@ -93,8 +93,9 @@ public class App extends Application{
 
     private String[] btn9Images = new String[]{
         "images/bobby.jpg",
-        "images/frog.jpg",
-        "images/frog1.jpg"
+        "images/Peter.jpg",
+        "images/michel.jpg",
+        "images/Tom_Shadyac.jpg"
     };
 
     private String[] btn10Images = new String[]{
@@ -221,7 +222,7 @@ public class App extends Application{
                             query = "SELECT DISTINCT actorName as JamesBond FROM tempactors WHERE played LIKE '%james bond%' LIMIT 10;";
                         break;
                         case "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?": imageList = ctrl.displayImages(btn9Images);
-                            query = "SELECT directorname, COUNT(directorname) as num FROM tempdirectors RIGHT JOIN tempactors ON play_title = tempactors.title WHERE tempactors.serieormovie = 'movie' AND actorname LIKE '%Carrey, Jim%' AND NOT tempdirectors.platform = '(TV)' GROUP BY directorname ORDER BY num DESC LIMIT 1;";
+                            query = "SELECT directorname, COUNT(directorname) as num FROM tempdirectors RIGHT JOIN tempactors ON play_title = tempactors.title WHERE tempactors.serieormovie = 'movie' AND actorname LIKE '%Carrey, Jim%' AND NOT tempdirectors.platform = '(TV)' GROUP BY directorname ORDER BY num DESC LIMIT 4;";
                         break;
                         case "Welk nummer is het vaakst gebruikt in de soundtrack van films?": imageList = ctrl.displayImages(btn10Images);
                             query = "SELECT songtitle, COUNT(songtitle) AS count FROM tempsoundtrackmovies GROUP BY songtitle ORDER BY count DESC LIMIT 1;";
