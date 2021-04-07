@@ -81,12 +81,19 @@ public class App extends Application{
 
     private String[] btn8Images = new String[]{
         "images/GoVnoEZ.jpg",
+        "images/frog1.jpg",
+        "images/frog.jpg",
+        "images/frog1.jpg",
+        "images/frog.jpg",
+        "images/frog1.jpg",
+        "images/frog.jpg",
+        "images/frog1.jpg",
+        "images/frog.jpg",
         "images/frog1.jpg"
     };
 
     private String[] btn9Images = new String[]{
-        "images/GoVnoEZ.jpg",
-        "images/frog1.jpg"
+        "images/dumbanddumber.jpg"
     };
 
     private String[] btn10Images = new String[]{
@@ -98,10 +105,10 @@ public class App extends Application{
         "Hoeveel acteurs zijn er met de naam Wouter?",
         "In hoeveel films heeft Morgan Freeman gespeeld?",
         "Welke 5 films hebben de meeste acteurs?",
-        "Hoe lang duurt een film gemiddeld per genre (gesorteerd op jaar)",
-        "In welk jaar zijn de meeste films uitgekomen (per genre)?",
-        "Welke acteur/actrice heeft in de meeste films/series gespeeld?",
-        "Hoeveel acteurs zijn er met de voornaam Max?",
+        "Hoeveel films zijn (deels) opgenomen in New York",
+        "Hoeveel films zijn er per jaar uitgekomen sinds 2015?",
+        "Welke acteur heeft in de meeste films gespeeld?",
+        "Welke actrice heeft in de meeste films gespeeld?",
         "Welke acteurs hebben de rol van James Bond gespeeld?",
         "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?",
         "Welk nummer is het vaakst gebruikt in de soundtrack van films?"
@@ -191,36 +198,33 @@ public class App extends Application{
                     switch(b.getText()){
                         case "Hoeveel acteurs zijn er met de naam Wouter?": imageList = ctrl.displayImages(btn1Images);
                             query = "SELECT COUNT(DISTINCT actorname) AS count FROM tempactors WHERE actorname LIKE '%, Wouter';";
-                            testList.add("test1");
                         break;
                         case "In hoeveel films heeft Morgan Freeman gespeeld?": imageList = ctrl.displayImages(btn2Images);
                             query = "SELECT actorname, COUNT(actorName) AS count FROM tempactors WHERE actorname LIKE '%Freeman, Morgan%' > 0 AND serieormovie = 'movie' GROUP BY actorName ORDER BY(count) DESC;";
-                            testList.add("test1");
-                            testList.add("test2");
-                            testList.add("test3");
-                            testList.add("test4");
                         break;
                         case "Welke 5 films hebben de meeste acteurs?": imageList = ctrl.displayImages(btn3Images);
                             query = "SELECT title, COUNT(actorName) as AmountofActors FROM tempactors WHERE serieormovie = 'movie' AND NOT platform = '(VG)' GROUP BY title, play_year ORDER BY AmountofActors DESC LIMIT 5;";
-                            testList.add("test1");
-                            testList.add("test2");
-                            testList.add("test3");
-                            testList.add("test4");
-                            testList.add("test5");
                         break;
-                        case "Hoe lang duurt een film gemiddeld per genre (gesorteerd op jaar)": imageList = ctrl.displayImages(btn4Images);
+                        case "Hoeveel films zijn (deels) opgenomen in New York": imageList = ctrl.displayImages(btn4Images);
+                            query = "SELECT COUNT(title) as recorded_in_newyork FROM templocation WHERE filming_loc LIKE '%New York%';";
                         break;
-                        case "In welk jaar zijn de meeste films uitgekomen (per genre)?": imageList = ctrl.displayImages(btn5Images);
+                        case "Hoeveel films zijn er per jaar uitgekomen sinds 2015?": imageList = ctrl.displayImages(btn5Images);
+                            query = "SELECT movie_year,COUNT(tempmovies.title) AS amountOfMovies FROM tempmovies WHERE movie_year > 2014 AND movie_year < 2022 GROUP BY movie_year ORDER BY movie_year DESC;";
                         break;
-                        case "Welke acteur/actrice heeft in de meeste films/series gespeeld?": imageList = ctrl.displayImages(btn6Images);
+                        case "Welke acteur heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn6Images);
+                            query = "SELECT actorName, COUNT(actorName) as NUMFILMS FROM tempactors WHERE serieormovie = 'movie' GROUP BY actorName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
-                        case "Hoeveel acteurs zijn er met de voornaam Max?": imageList = ctrl.displayImages(btn7Images);;
+                        case "Welke actrice heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn6Images);
+                            query = "SELECT actressName, COUNT(actressName) as NUMFILMS FROM tempactresses WHERE serieormovie = 'movie' GROUP BY actressName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
                         case "Welke acteurs hebben de rol van James Bond gespeeld?": imageList = ctrl.displayImages(btn8Images);
+                            query = "SELECT DISTINCT actorName as JamesBond FROM tempactors WHERE played LIKE '%james bond%' LIMIT 10;";
                         break;
                         case "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?": imageList = ctrl.displayImages(btn9Images);
+                            query = "SELECT directorname, COUNT(directorname) as num FROM tempdirectors RIGHT JOIN tempactors ON play_title = tempactors.title WHERE tempactors.serieormovie = 'movie' AND actorname LIKE '%Carrey, Jim%' AND NOT tempdirectors.platform = '(TV)' GROUP BY directorname ORDER BY num DESC LIMIT 1;";
                         break;
                         case "Welk nummer is het vaakst gebruikt in de soundtrack van films?": imageList = ctrl.displayImages(btn10Images);
+                            query = "SELECT songtitle, COUNT(songtitle) AS count FROM tempsoundtrackmovies GROUP BY songtitle ORDER BY count DESC LIMIT 1;";
                         break;
                         default: imageList = ctrl.displayImages(btn1Images);
                         break;
@@ -232,8 +236,8 @@ public class App extends Application{
                     grid.getChildren().clear();
 
                     try{
-                        descriptions = testList;
-                        //descriptions = ctrl.getQueryResult(query);
+                        //descriptions = testList;
+                        descriptions = ctrl.getQueryResult(query);
                         query = "";
                     }
                     catch (Exception e) {
@@ -242,10 +246,15 @@ public class App extends Application{
 
                     int col = 0;
                     int row = 0;
-                    if(descriptions.size() == imageList.size() && descriptions.size() > 0){
+
+                    if(descriptions.size() > 0){
+
                         for (int j = 0; j < descriptions.size(); j++) {
                             System.out.println("entering image+desc loop");
-                            box.getChildren().add(imageList.get(j));
+
+                            if(imageList.get(j) != null) 
+                                box.getChildren().add(imageList.get(j));
+
                             Text text = new Text(100, 250, descriptions.get(j));
                             box.getChildren().add(text);
 
@@ -255,7 +264,8 @@ public class App extends Application{
                             }else{
                                 col = 1;
                             }
-                            grid.add(imageList.get(j), col, row);
+                            if(imageList.get(j) != null) 
+                                grid.add(imageList.get(j), col, row);
                             grid.add(text, col, row+1);
                         }
                     }
