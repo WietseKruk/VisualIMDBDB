@@ -103,6 +103,10 @@ public class App extends Application{
         "images/jinglebells.jpg"
     };
 
+    private String[] btn11Images = new String[]{
+        "images/plot.png"
+    };
+
     private String[] blankImage = new String[]{
         "images/blankimg.png"
     };
@@ -117,7 +121,8 @@ public class App extends Application{
         "Welke actrice heeft in de meeste films gespeeld?",
         "Welke acteurs hebben de rol van James Bond gespeeld?",
         "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?",
-        "Welk nummer is het vaakst gebruikt in de soundtrack van films?"
+        "Welk nummer is het vaakst gebruikt in de soundtrack van films?",
+        "Is de tijdsduur van een film met de jaren langer geworden?"
     };
 
     private String query;
@@ -138,6 +143,7 @@ public class App extends Application{
     Button btn8 = new Button("7");
     Button btn9 = new Button("8");
     Button btn10 = new Button("9");
+    Button btn11 = new Button("10");
     VBox buttonsBG = new VBox();
     VBox border = new VBox();
 
@@ -147,7 +153,7 @@ public class App extends Application{
     public void start(Stage primaryStage) throws Exception{
         scene.getStylesheets().add("stylesheet.css");
 
-        buttons.setSpacing(5);
+        buttons.setSpacing(2);
         box.setSpacing(5);
         box.setMinSize(700, 680);
         box.setMaxSize(700, 680);
@@ -172,6 +178,7 @@ public class App extends Application{
         buttonList.add(btn8);
         buttonList.add(btn9);
         buttonList.add(btn10);
+        buttonList.add(btn11);
 
         for (int i = 0; i < buttonList.size(); i++) {
             buttonList.get(i).setText(vragen[i]);
@@ -232,6 +239,9 @@ public class App extends Application{
                         case "Welk nummer is het vaakst gebruikt in de soundtrack van films?": imageList = ctrl.displayImagesLarge(btn10Images);
                             query = "SELECT songtitle, COUNT(songtitle) AS count FROM tempsoundtrackmovies GROUP BY songtitle ORDER BY count DESC LIMIT 1;";
                         break;
+                        case "Is de tijdsduur van een film met de jaren langer geworden?": imageList = ctrl.displayImagesLarge(btn11Images);
+                            descriptions.add("De test is nog eens gedaan op een andere split op de dataset en ook voor deze set \nwordt de h0 verworpen. Dit betekend van de we met grote zekerheid kunnen zeggen \ndat tijdsduur niets te maken heeft met het jaar waarin de film is uitgebracht.");
+                        break;
                         default: imageList = ctrl.displayImages(btn1Images);
                         break;
                     } 
@@ -243,9 +253,13 @@ public class App extends Application{
                     grid.getChildren().clear();
 
                     try{
-                        //descriptions = testList;
-                        descriptions = ctrl.getQueryResult(query);
-                        query = "";
+                        
+                        if(query != null){
+                            descriptions = testList;
+                            //descriptions = ctrl.getQueryResult(query);
+
+                        }
+                        query = null;
                     }
                     catch (Exception e) {
                         e.printStackTrace();
@@ -285,7 +299,7 @@ public class App extends Application{
             buttons.getChildren().add(buttonList.get(i));
         }; 
 
-        buttons.setSpacing(20);
+        buttons.setSpacing(12);
         root.getChildren().add(buttonsBG);
         root.getChildren().add(border);
         root.getChildren().add(buttons);

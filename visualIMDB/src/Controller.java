@@ -53,7 +53,7 @@ public class Controller {
         ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
 
         for (int i = 0; i < imageURLList.length; i++) {
-            Image image = new Image(imageURLList[i], 200, 250, false, false);
+            Image image = new Image(imageURLList[i], 200, 250, true, false);
             ImageView iv = new ImageView();
             iv.setImage(image);
             imageViewList.add(iv);
@@ -75,7 +75,7 @@ public class Controller {
         ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
 
         for (int i = 0; i < imageURLList.length; i++) {
-            Image image = new Image(imageURLList[i], 650, 325, false, false);
+            Image image = new Image(imageURLList[i], 650, 325, true, false);
             ImageView iv = new ImageView();
             iv.setImage(image);
             imageViewList.add(iv);
@@ -96,7 +96,7 @@ public class Controller {
         ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
 
         for (int i = 0; i < imageURLList.length; i++) {
-            Image image = new Image(imageURLList[i], 400, 500, false, false);
+            Image image = new Image(imageURLList[i], 400, 500, true, false);
             ImageView iv = new ImageView();
             iv.setImage(image);
             imageViewList.add(iv);
