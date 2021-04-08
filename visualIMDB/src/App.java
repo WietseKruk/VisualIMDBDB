@@ -74,7 +74,7 @@ public class App extends Application{
     private String[] btn6Images = new String[]{
         "images/Tom_Byron.jpg"
     };
-
+   
     private String[] btn7Images = new String[]{
         "images/nina_hartley.jpg"
     };
@@ -184,7 +184,7 @@ public class App extends Application{
         border.setLayoutX(350);
         border.setLayoutY(20);
         grid.setLayoutX(370);
-        grid.setLayoutY(20);
+        grid.setLayoutY(40);
 
         border.setStyle("-fx-border-width: 3; -fx-border-color: #454e9e; -fx-background: darkblue;");
 
@@ -202,7 +202,7 @@ public class App extends Application{
                     imageBlank.clear();
                     imageBlank = ctrl.displayImages(blankImage);
                     switch(b.getText()){
-                        case "Hoeveel acteurs zijn er met de naam Wouter?": imageList = ctrl.displayImages(btn1Images);
+                        case "Hoeveel acteurs zijn er met de naam Wouter?": imageList = ctrl.displayImagesLarge(btn1Images);
                             query = "SELECT COUNT(DISTINCT actorname) AS count FROM tempactors WHERE actorname LIKE '%, Wouter';";
                         break;
                         case "In hoeveel films heeft Morgan Freeman gespeeld?": imageList = ctrl.displayImages(btn2Images);
@@ -211,16 +211,16 @@ public class App extends Application{
                         case "Welke 5 films hebben de meeste acteurs?": imageList = ctrl.displayImages(btn3Images);
                             query = "SELECT title, COUNT(actorName) as AmountofActors FROM tempactors WHERE serieormovie = 'movie' AND NOT platform = '(VG)' GROUP BY title, play_year ORDER BY AmountofActors DESC LIMIT 5;";
                         break;
-                        case "Hoeveel films zijn (deels) opgenomen in New York": imageList = ctrl.displayImages(btn4Images);
+                        case "Hoeveel films zijn (deels) opgenomen in New York": imageList = ctrl.displayImagesLarge(btn4Images);
                             query = "SELECT COUNT(title) as recorded_in_newyork FROM templocation WHERE filming_loc LIKE '%New York%';";
                         break;
-                        case "Hoeveel films zijn er per jaar uitgekomen sinds 2015?": imageList = ctrl.displayImages(btn5Images);
+                        case "Hoeveel films zijn er per jaar uitgekomen sinds 2015?": imageList = ctrl.displayImagesLarge(btn5Images);
                             query = "SELECT movie_year,COUNT(tempmovies.title) AS amountOfMovies FROM tempmovies WHERE movie_year > 2014 AND movie_year < 2022 GROUP BY movie_year ORDER BY movie_year DESC;";
                         break;
-                        case "Welke acteur heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn6Images);
+                        case "Welke acteur heeft in de meeste films gespeeld?": imageList = ctrl.displayImagesPortrait(btn6Images);
                             query = "SELECT actorName, COUNT(actorName) as NUMFILMS FROM tempactors WHERE serieormovie = 'movie' GROUP BY actorName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
-                        case "Welke actrice heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn7Images);
+                        case "Welke actrice heeft in de meeste films gespeeld?": imageList = ctrl.displayImagesPortrait(btn7Images);
                             query = "SELECT actressName, COUNT(actressName) as NUMFILMS FROM tempactresses WHERE serieormovie = 'movie' GROUP BY actressName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
                         case "Welke acteurs hebben de rol van James Bond gespeeld?": imageList = ctrl.displayImages(btn8Images);
@@ -229,13 +229,16 @@ public class App extends Application{
                         case "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?": imageList = ctrl.displayImages(btn9Images);
                             query = "SELECT directorname, COUNT(directorname) as num FROM tempdirectors RIGHT JOIN tempactors ON play_title = tempactors.title WHERE tempactors.serieormovie = 'movie' AND actorname LIKE '%Carrey, Jim%' AND NOT tempdirectors.platform = '(TV)' GROUP BY directorname ORDER BY num DESC LIMIT 4;";
                         break;
-                        case "Welk nummer is het vaakst gebruikt in de soundtrack van films?": imageList = ctrl.displayImages(btn10Images);
+                        case "Welk nummer is het vaakst gebruikt in de soundtrack van films?": imageList = ctrl.displayImagesLarge(btn10Images);
                             query = "SELECT songtitle, COUNT(songtitle) AS count FROM tempsoundtrackmovies GROUP BY songtitle ORDER BY count DESC LIMIT 1;";
                         break;
                         default: imageList = ctrl.displayImages(btn1Images);
                         break;
-                    }
+                    } 
                     
+                    testList.add("tekst1");
+                    testList.add("tekst2");
+
                     root.getChildren().remove(grid);
                     grid.getChildren().clear();
 
@@ -256,17 +259,16 @@ public class App extends Application{
                             System.out.println("entering image+desc loop");
                             Text text = new Text(100, 250, descriptions.get(j));
 
-                            if(j%2 == 0){
+                            if(col == 3){
                                 col = 0;
                                 row+=2;
-                            }else{
-                                col = 1;
                             }
                             if(imageList.size() > j)
                                 grid.add(imageList.get(j), col, row);
                             else
                                 grid.add(imageBlank.get(0), col, row);
                             grid.add(text, col, row+1);
+                            col++;
                         }
                     }
                     box.getStyleClass().add("box");
