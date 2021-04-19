@@ -34,7 +34,6 @@ public class Controller {
                     line = "";
                 }
             }
-            //printResult(result);
             return result;
         } catch (Exception e){
             System.out.println(e);
@@ -48,68 +47,23 @@ public class Controller {
         }
     }
 
-    public ArrayList<ImageView> displayImages(String[] imageURLList){
+    public ArrayList<ImageView> displayImages(String[] imageURLList, int height, int width){
         System.out.println("entering displayImages " + imageURLList[0].toString());
         ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
 
         for (int i = 0; i < imageURLList.length; i++) {
-            Image image = new Image(imageURLList[i], 200, 250, true, false);
+            Image image = new Image(imageURLList[i], width, height, true, false);
             ImageView iv = new ImageView();
             iv.setImage(image);
             imageViewList.add(iv);
         }
 
         for (ImageView imageView : imageViewList) {
-            //imageView.setFitWidth(300);
             imageView.setPreserveRatio(true);
             imageView.setSmooth(true);
             imageView.setCache(true);
         } 
         System.out.println(imageViewList.toString());
         return imageViewList;
-    }
-
-
-    public ArrayList<ImageView> displayImagesLarge(String[] imageURLList){
-        System.out.println("entering displayImages " + imageURLList[0].toString());
-        ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
-
-        for (int i = 0; i < imageURLList.length; i++) {
-            Image image = new Image(imageURLList[i], 650, 325, true, false);
-            ImageView iv = new ImageView();
-            iv.setImage(image);
-            imageViewList.add(iv);
-        }
-
-        for (ImageView imageView : imageViewList) {
-            //imageView.setFitWidth(300);
-            imageView.setPreserveRatio(true);
-            imageView.setSmooth(true);
-            imageView.setCache(true);
-        } 
-        System.out.println(imageViewList.toString());
-        return imageViewList;
-    }
-
-    public ArrayList<ImageView> displayImagesPortrait(String[] imageURLList){
-        System.out.println("entering displayImages " + imageURLList[0].toString());
-        ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
-
-        for (int i = 0; i < imageURLList.length; i++) {
-            Image image = new Image(imageURLList[i], 400, 500, true, false);
-            ImageView iv = new ImageView();
-            iv.setImage(image);
-            imageViewList.add(iv);
-        }
-
-        for (ImageView imageView : imageViewList) {
-            //imageView.setFitWidth(300);
-            imageView.setPreserveRatio(true);
-            imageView.setSmooth(true);
-            imageView.setCache(true);
-        } 
-        System.out.println(imageViewList.toString());
-        return imageViewList;
-    }
-    
+    }    
 }

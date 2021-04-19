@@ -184,6 +184,7 @@ public class App extends Application{
             buttonList.get(i).setText(vragen[i]);
         }
 
+        //Layout
         buttons.setLayoutX(20);
         buttons.setLayoutY(20);
         box.setLayoutX(350);
@@ -207,42 +208,42 @@ public class App extends Application{
                     //Testen voor leeg db
                     ArrayList<String> testList = new ArrayList();
                     imageBlank.clear();
-                    imageBlank = ctrl.displayImages(blankImage);
+                    imageBlank = ctrl.displayImages(blankImage, 150, 250);
                     switch(b.getText()){
-                        case "Hoeveel acteurs zijn er met de naam Wouter?": imageList = ctrl.displayImagesLarge(btn1Images);
+                        case "Hoeveel acteurs zijn er met de naam Wouter?": imageList = ctrl.displayImages(btn1Images, 650, 325);
                             query = "SELECT COUNT(DISTINCT actorname) AS count FROM tempactors WHERE actorname LIKE '%, Wouter';";
                         break;
-                        case "In hoeveel films heeft Morgan Freeman gespeeld?": imageList = ctrl.displayImages(btn2Images);
+                        case "In hoeveel films heeft Morgan Freeman gespeeld?": imageList = ctrl.displayImages(btn2Images, 150, 250);
                             query = "SELECT actorname, COUNT(actorName) AS count FROM tempactors WHERE actorname LIKE '%Freeman, Morgan%' > 0 AND serieormovie = 'movie' GROUP BY actorName ORDER BY(count) DESC;";
                         break;
-                        case "Welke 5 films hebben de meeste acteurs?": imageList = ctrl.displayImages(btn3Images);
+                        case "Welke 5 films hebben de meeste acteurs?": imageList = ctrl.displayImages(btn3Images, 150, 250);
                             query = "SELECT title, COUNT(actorName) as AmountofActors FROM tempactors WHERE serieormovie = 'movie' AND NOT platform = '(VG)' GROUP BY title, play_year ORDER BY AmountofActors DESC LIMIT 5;";
                         break;
-                        case "Hoeveel films zijn (deels) opgenomen in New York": imageList = ctrl.displayImagesLarge(btn4Images);
+                        case "Hoeveel films zijn (deels) opgenomen in New York": imageList = ctrl.displayImages(btn4Images, 650, 325);
                             query = "SELECT COUNT(title) as recorded_in_newyork FROM templocation WHERE filming_loc LIKE '%New York%';";
                         break;
-                        case "Hoeveel films zijn er per jaar uitgekomen sinds 2015?": imageList = ctrl.displayImagesLarge(btn5Images);
+                        case "Hoeveel films zijn er per jaar uitgekomen sinds 2015?": imageList = ctrl.displayImages(btn5Images, 650, 325);
                             query = "SELECT movie_year,COUNT(tempmovies.title) AS amountOfMovies FROM tempmovies WHERE movie_year > 2014 AND movie_year < 2022 GROUP BY movie_year ORDER BY movie_year DESC;";
                         break;
-                        case "Welke acteur heeft in de meeste films gespeeld?": imageList = ctrl.displayImagesPortrait(btn6Images);
+                        case "Welke acteur heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn6Images, 400, 500);
                             query = "SELECT actorName, COUNT(actorName) as NUMFILMS FROM tempactors WHERE serieormovie = 'movie' GROUP BY actorName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
-                        case "Welke actrice heeft in de meeste films gespeeld?": imageList = ctrl.displayImagesPortrait(btn7Images);
+                        case "Welke actrice heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn7Images, 400, 500);
                             query = "SELECT actressName, COUNT(actressName) as NUMFILMS FROM tempactresses WHERE serieormovie = 'movie' GROUP BY actressName ORDER BY NUMFILMS DESC LIMIT 1;";
                         break;
-                        case "Welke acteurs hebben de rol van James Bond gespeeld?": imageList = ctrl.displayImages(btn8Images);
+                        case "Welke acteurs hebben de rol van James Bond gespeeld?": imageList = ctrl.displayImages(btn8Images, 150, 250);
                             query = "SELECT DISTINCT actorName as JamesBond FROM tempactors WHERE played LIKE '%james bond%' LIMIT 10;";
                         break;
-                        case "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?": imageList = ctrl.displayImages(btn9Images);
+                        case "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?": imageList = ctrl.displayImages(btn9Images, 150, 250);
                             query = "SELECT directorname, COUNT(directorname) as num FROM tempdirectors RIGHT JOIN tempactors ON play_title = tempactors.title WHERE tempactors.serieormovie = 'movie' AND actorname LIKE '%Carrey, Jim%' AND NOT tempdirectors.platform = '(TV)' GROUP BY directorname ORDER BY num DESC LIMIT 4;";
                         break;
-                        case "Welk nummer is het vaakst gebruikt in de soundtrack van films?": imageList = ctrl.displayImagesLarge(btn10Images);
+                        case "Welk nummer is het vaakst gebruikt in de soundtrack van films?": imageList = ctrl.displayImages(btn10Images, 650, 325);
                             query = "SELECT songtitle, COUNT(songtitle) AS count FROM tempsoundtrackmovies GROUP BY songtitle ORDER BY count DESC LIMIT 1;";
                         break;
-                        case "Is de tijdsduur van een film met de jaren langer geworden?": imageList = ctrl.displayImagesLarge(btn11Images);
+                        case "Is de tijdsduur van een film met de jaren langer geworden?": imageList = ctrl.displayImages(btn11Images, 650, 325);
                             descriptions.add("De test is nog eens gedaan op een andere split op de dataset en ook voor deze set \nwordt de h0 verworpen. Dit betekend van de we met grote zekerheid kunnen zeggen \ndat tijdsduur niets te maken heeft met het jaar waarin de film is uitgebracht.");
                         break;
-                        default: imageList = ctrl.displayImages(btn1Images);
+                        default: imageList = ctrl.displayImages(btn1Images, 150, 250);
                         break;
                     } 
                     
