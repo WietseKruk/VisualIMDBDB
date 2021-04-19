@@ -45,14 +45,14 @@ public class App extends Application{
     private ArrayList<Button> buttonList = new ArrayList<Button>();
 
     private String[] btn1Images = new String[]{
-        "images/frog1.jpg"
+        "images/WouterHendrickx.jpg"
     };
 
     private String[] btn2Images = new String[]{
         "images/mf1.jpg",
         "images/mf2.jpg",
-        "images/frog.jpg"
-        //"images/frog.jpg"
+        "images/noface.jpg",
+        "images/noface.jpg"
     };
 
     private String[] btn3Images = new String[]{
@@ -68,42 +68,31 @@ public class App extends Application{
     };
 
     private String[] btn5Images = new String[]{
-        "images/mp,550x550,matte,ffffff,t.jpg"
+        "images/2015.jpg"
     };
 
     private String[] btn6Images = new String[]{
         "images/Tom_Byron.jpg"
     };
-   
+
     private String[] btn7Images = new String[]{
-        "images/nina_hartley.jpg"
+        "images/SeanConnery.jpeg",
+        "images/RogerMoore.jpg",
+        "images/PierceBrosnan.jpg"
     };
 
     private String[] btn8Images = new String[]{
-        "images/GoVnoEZ.jpg",
-        "images/frog1.jpg",
-        "images/frog.jpg",
-        "images/frog1.jpg",
-        "images/frog.jpg",
-        "images/frog1.jpg",
-        "images/frog.jpg",
-        "images/frog1.jpg",
-        "images/frog.jpg",
-        "images/frog1.jpg"
-    };
-
-    private String[] btn9Images = new String[]{
         "images/bobby.jpg",
         "images/Peter.jpg",
         "images/michel.jpg",
         "images/Tom_Shadyac.jpg"
     };
 
-    private String[] btn10Images = new String[]{
-        "images/jinglebells.jpg"
+    private String[] btn9Images = new String[]{
+        "images/rodeloper.png"
     };
 
-    private String[] btn11Images = new String[]{
+    private String[] btn10Images = new String[]{
         "images/plot.png"
     };
 
@@ -216,33 +205,30 @@ public class App extends Application{
                         case "Welke 5 films hebben de meeste acteurs?": imageList = ctrl.displayImages(btn3Images, 150, 250);
                             query = "CALL Vraag3();";
                         break;
-                        case "Hoeveel films zijn (deels) opgenomen in New York": imageList = ctrl.displayImages(btn4Images, 650, 325);
+                        case "Hoeveel films zijn (deels) opgenomen in New York": imageList = ctrl.displayImages(btn4Images, 1300, 650);
                             query = "CALL Vraag4();";
                         break;
-                        case "Hoeveel films zijn er per jaar uitgekomen sinds 2015?": imageList = ctrl.displayImages(btn5Images, 650, 325);
+                        case "Hoeveel films zijn er per jaar uitgekomen sinds 2015?": imageList = ctrl.displayImages(btn5Images, 1300, 650);
                             query = "CALL Vraag5();";
                         break;
                         case "Welke acteur heeft in de meeste films gespeeld?": imageList = ctrl.displayImages(btn6Images, 400, 500);
                             query = "CALL Vraag6();";
                         break;
-                        case "Welke acteurs hebben de rol van James Bond gespeeld?": imageList = ctrl.displayImages(btn8Images, 150, 250);
+                        case "Welke acteurs hebben de rol van James Bond gespeeld?": imageList = ctrl.displayImages(btn7Images, 200, 300);
                             query = "CALL Vraag7();";
                         break;
-                        case "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?": imageList = ctrl.displayImages(btn9Images, 150, 250);
+                        case "Welke regisseur heeft de meeste films met Jim Carrey geregisseerd?": imageList = ctrl.displayImages(btn8Images, 150, 250);
                             query = "CALL Vraag8();";
                         break;
-                        case "Hoeveel acteurs en actrices spelen er gemiddeld in een film?": imageList = ctrl.displayImages(btn10Images, 650, 325);
+                        case "Hoeveel acteurs en actrices spelen er gemiddeld in een film?": imageList = ctrl.displayImages(btn9Images, 1300, 650);
                             query = "CALL Vraag9();";
                         break;
-                        case "Is de tijdsduur van een film met de jaren langer geworden?": imageList = ctrl.displayImages(btn11Images, 650, 325);
+                        case "Is de tijdsduur van een film met de jaren langer geworden?": imageList = ctrl.displayImages(btn10Images, 1300, 650);
                             descriptions.add("De test is nog eens gedaan op een andere split op de dataset en ook voor deze set \nwordt de h0 verworpen. Dit betekend van de we met grote zekerheid kunnen zeggen \ndat tijdsduur niets te maken heeft met het jaar waarin de film is uitgebracht.");
                         break;
                         default: imageList = ctrl.displayImages(btn1Images, 150, 250);
                         break;
                     } 
-                    
-                    testList.add("tekst1");
-                    testList.add("tekst2");
 
                     root.getChildren().remove(grid);
                     grid.getChildren().clear();
@@ -250,7 +236,6 @@ public class App extends Application{
                     try{
                         
                         if(query != null){
-                            //descriptions = testList;
                             descriptions = ctrl.getQueryResult(query);
 
                         }
@@ -294,7 +279,7 @@ public class App extends Application{
             buttons.getChildren().add(buttonList.get(i));
         }; 
 
-        buttons.setSpacing(12);
+        buttons.setSpacing(20);
         root.getChildren().add(buttonsBG);
         root.getChildren().add(border);
         root.getChildren().add(buttons);
